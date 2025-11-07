@@ -1,34 +1,20 @@
-'use client' // ✅ needed for hooks in Next.js App Router
+'use client';
 
-import { useState, useEffect } from 'react'
-import { supabase } from '@/lib/supabaseClient'
+import React from "react";
 
-export default function Home() {
-  const [time, setTime] = useState<string>('Loading...')
-
-  useEffect(() => {
-    const getTime = async () => {
-      const { data, error } = await supabase
-        .from('quizzes')
-        .select('*')
-        .limit(1)
-
-      if (error) {
-        console.error(error)
-        setTime('Error fetching data')
-      } else {
-        setTime(JSON.stringify(data, null, 2))
-      }
-    }
-
-    getTime()
-  }, [])
-
+export default function Page() {
   return (
-    <div>
-      <h1>🧠 AI Quiz Builder</h1>
-      <h2>Supabase Test — Server Time:</h2>
-      <pre>{time}</pre>
+    <div className="flex flex-col items-center justify-center min-h-screen text-center p-10">
+      <h1 className="text-4xl font-bold mb-4">Welcome to AI Quiz Builder 🎓</h1>
+      <p className="text-lg text-gray-500 mb-6">
+        Create, share, and take AI-generated quizzes easily.
+      </p>
+      <a
+        href="/signin"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Get Started
+      </a>
     </div>
-  )
+  );
 }
