@@ -10,7 +10,7 @@ export default function Page() {
         Create, share, and take AI-generated quizzes easily.
       </p>
       <a
-        href="/signin"
+        href=" /auth"
         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
       >
         Get Started
