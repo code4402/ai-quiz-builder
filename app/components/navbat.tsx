@@ -1,11 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-
+import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 
 export default function Navbar() {
- 
+  const router = useRouter()
   const { user, signOut } = useAuth()
 
   return (
