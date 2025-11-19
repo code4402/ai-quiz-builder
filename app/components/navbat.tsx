@@ -1,43 +1,40 @@
-'use client'
-import Link from 'next/link'
-import { useAuth } from '@/context/AuthContext'
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import Navbar from "@/components/Navbar"; // ✅ add this import
 
-export default function Navbar() {
-  const { user, signOut } = useAuth()
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "AI Quiz Builder",
+  description: "Create and take AI-generated quizzes",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <nav className="flex justify-between items-center bg-gray-900 text-white px-6 py-3">
-      {/* Left Section */}
-      <div className="flex items-center gap-6">
-        <Link href="/" className="text-xl font-bold text-blue-400">
-          🧠 AI Quiz Builder
-        </Link>
-        <Link href="/teacher" className="hover:text-blue-300">Teacher Dashboard</Link>
-        <Link href="/student" className="hover:text-blue-300">Student Dashboard</Link>
-      </div>
-
-      {/* Right Section */}
-      <div>
-        {user ? (
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-300">{user.email}</span>
-            <button
-              onClick={signOut}
-              className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm"
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <Link
-            href="/signin"
-            className="bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded text-sm"
-          >
-            Sign In
-          </Link>
-        )}
-      </div>
-    </nav>
-  )
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <AuthProvider>
+          {/* ✅ Navbar at top */}
+          <Navbar />
+          <main className="p-6">{children}</main>
+        </AuthProvider>
+      </body>
+    </html>
+  );
 }
- 
