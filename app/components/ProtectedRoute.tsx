@@ -1,21 +1,24 @@
 "use client";
+import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useAuth } from "@/context/AuthContext";
 
-export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
+export default function ProtectedRoute({ children, role }: { children: React.ReactNode, role?: string }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !user) {
-      router.push("/signin"); // Redirect to login if not logged in
+    if (!loading) {
+      if (!user) {
+        router.push("/signin"); // user not logged in
+      }
+      else if (role && user.role !== role) {
+        router.push("/unauthorized"); // role mismatch
+      }
     }
-  }, [user, loading, router]);
+  }, [user, loading, router, role]);
 
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
-
-  if (!user) return null; // Don’t render protected content until login is verified
+  if (loading) return <p>Loading...</p>;
 
   return <>{children}</>;
 }
