@@ -1,15 +1,11 @@
-"use client";
- import ProtectedRoute from "../components/ProtectedRoute";
-;
+import ProtectedRoute from "../components/ProtectedRoute";
+
 
 export default function TeacherDashboard() {
   return (
-    <ProtectedRoute>
-      <div className="p-8 text-center">
-        <h1 className="text-3xl font-bold">👩‍🏫 Teacher Dashboard</h1>
-        <p className="text-gray-600 mt-2">
-          Welcome! Only authenticated users can access this page.
-        </p>
+    <ProtectedRoute role="teacher">
+      <div className="p-10">
+        <h1 className="text-3xl font-bold">Teacher Dashboard</h1>
       </div>
     </ProtectedRoute>
   );
