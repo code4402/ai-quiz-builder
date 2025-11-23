@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
-// import Navbar from "@/components/Navbar"; // ✅ add this 
-{user && (
-  <span className="text-sm text-gray-400">
-    Role: {user.role}
-  </span>
+// import Navbar from "@/components/Navbar"; // ✅ add this import
+{user?.role === "teacher" && (
+  <Link href="/teacher/quiz">Create Quiz</Link>
 )}
 
 
@@ -43,4 +41,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-} 
+}
