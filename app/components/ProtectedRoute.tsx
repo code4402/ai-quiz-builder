@@ -1,22 +1,17 @@
 "use client";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/app/context/authcontext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function ProtectedRoute({ children, role }: { children: React.ReactNode, role?: string }) {
+export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading) {
-      if (!user) {
-        router.push("/signin"); // user not logged in
-      }
-      else if (role && user.role !== role) {
-        router.push("/unauthorized"); // role mismatch
-      }
+    if (!loading && !user) {
+      router.push("/auth/login");
     }
-  }, [user, loading, router, role]);
+  }, [loading, user, router]);
 
   if (loading) return <p>Loading...</p>;
 
