@@ -1,44 +1,27 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { AuthProvider } from "@/context/AuthContext";
-// import Navbar from "@/components/Navbar"; // ✅ add this import
-{user?.role === "teacher" && (
-  <Link href="/teacher/quiz">Create Quiz</Link>
-)}
+"use client";
 
+import Link from "next/link";
+import { useAuth } from "@/context/authcontext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+export default function Navbar() {
+  const { user, logout } = useAuth();
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "AI Quiz Builder",
-  description: "Create and take AI-generated quizzes",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <AuthProvider>
-          {/* ✅ Navbar at top */}
-          {/* <Navbar />/ */}
-          <main className="p-6">{children}</main>
-        </AuthProvider>
-      </body>
-    </html>
+    <nav style={{ display: "flex", gap: "20px", padding: "15px" }}>
+      <Link href="/">Home</Link>
+
+      {/* If user is logged in */}
+      {user ? (
+        <>
+          <Link href="/teacher">Dashboard</Link>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        <>
+          <Link href="/auth/login">Login</Link>
+          <Link href="/auth/signup">Signup</Link>
+        </>
+      )}
+    </nav>
   );
 }
