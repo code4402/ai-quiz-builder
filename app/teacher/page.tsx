@@ -1,11 +1,10 @@
-import ProtectedRoute from "../components/ProtectedRoute";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
-
-export default function TeacherDashboard() {
+export default function TeacherPage() {
   return (
-    <ProtectedRoute role="teacher">
-      <div className="p-10">
-        <h1 className="text-3xl font-bold">Teacher Dashboard</h1>
+    <ProtectedRoute>
+      <div>
+        <h1>Teacher Dashboard</h1>
       </div>
     </ProtectedRoute>
   );
