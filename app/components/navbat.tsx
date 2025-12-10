@@ -1,8 +1,13 @@
 "use client";
 import Link from "next/link";
 import { useAuth } from "@/app/context/authcontext";
+import { useRouter } from "next/navigation";
+
+
 
 export default function Navbar() {
+  const router = useRouter();
+
   const { user, logout } = useAuth();
 
   return (

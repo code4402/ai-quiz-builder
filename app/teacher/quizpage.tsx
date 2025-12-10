@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
+
 export default function QuizBuilder() {
   const [title, setTitle] = useState("");
   const [questions, setQuestions] = useState([{ question: "", answer: "" }]);
@@ -36,6 +37,9 @@ export default function QuizBuilder() {
     }
 
     alert("Quiz created!");
+    alert("Quiz created!");
+    router.push("/teacher");
+
   };
 
   return (
