@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 
-
 export default function QuizBuilder() {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [questions, setQuestions] = useState([{ question: "", answer: "" }]);
 
@@ -28,7 +29,7 @@ export default function QuizBuilder() {
       .select()
       .single();
 
-    for (let q of questions) {
+    for (const q of questions) { // ✅ Changed from 'let' to 'const'
       await supabase.from("questions").insert({
         quiz_id: quiz.id,
         question: q.question,
@@ -37,9 +38,7 @@ export default function QuizBuilder() {
     }
 
     alert("Quiz created!");
-    alert("Quiz created!");
     router.push("/teacher");
-
   };
 
   return (
